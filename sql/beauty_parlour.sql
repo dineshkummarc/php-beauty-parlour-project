@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 09, 2019 at 08:09 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 15, 2022 at 12:39 PM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `abpdb`
+-- Database: `beauty_parlour`
 --
 
 -- --------------------------------------------------------
@@ -28,14 +27,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
-CREATE TABLE `cart` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `useremail` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pro_id` int(11) NOT NULL,
   `productname` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `qty` int(11) NOT NULL,
-  `price` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `price` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `cart`
@@ -51,10 +52,12 @@ INSERT INTO `cart` (`id`, `useremail`, `pro_id`, `productname`, `qty`, `price`) 
 -- Table structure for table `category`
 --
 
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `category`
@@ -69,22 +72,26 @@ INSERT INTO `category` (`id`, `name`) VALUES
 -- Table structure for table `feedback`
 --
 
-CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `feedback`;
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pro_id` int(11) NOT NULL,
   `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
-  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `feedback`
 --
 
 INSERT INTO `feedback` (`id`, `pro_id`, `name`, `email`, `comment`, `date`, `status`) VALUES
-(2, 2, 'sadia', 'nila@gmail.com', '           good     \r\n              ', '2019-12-08 01:23:30', '');
+(2, 2, 'sadia', 'nila@gmail.com', '           good     \r\n              ', '2019-12-08 01:23:30', ''),
+(3, 0, 'Limon', 'mjk.limon@gmai.com', 'Testing feedback', '2021-12-14 12:22:40', '0'),
+(4, 0, 'Shahed', 'shahedkhan.fiverr@gmail.com', 'sfsfsfsf', '2021-12-14 12:46:49', '0');
 
 -- --------------------------------------------------------
 
@@ -92,15 +99,17 @@ INSERT INTO `feedback` (`id`, `pro_id`, `name`, `email`, `comment`, `date`, `sta
 -- Table structure for table `product`
 --
 
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
   `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cetegory` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `description` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `product`
@@ -130,8 +139,9 @@ INSERT INTO `product` (`id`, `name`, `price`, `stock`, `image`, `cetegory`, `des
 -- Table structure for table `pro_order`
 --
 
-CREATE TABLE `pro_order` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pro_order`;
+CREATE TABLE IF NOT EXISTS `pro_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mobile` int(15) NOT NULL,
@@ -143,9 +153,10 @@ CREATE TABLE `pro_order` (
   `total` int(11) NOT NULL,
   `trxid` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` datetime NOT NULL DEFAULT current_timestamp(),
-  `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pro_order`
@@ -174,15 +185,17 @@ INSERT INTO `pro_order` (`id`, `name`, `email`, `mobile`, `pro_id`, `pro_name`, 
 -- Table structure for table `tbladmin`
 --
 
-CREATE TABLE `tbladmin` (
-  `ID` int(10) NOT NULL,
+DROP TABLE IF EXISTS `tbladmin`;
+CREATE TABLE IF NOT EXISTS `tbladmin` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `AdminName` char(50) DEFAULT NULL,
   `UserName` char(50) DEFAULT NULL,
   `MobileNumber` bigint(10) DEFAULT NULL,
   `Email` varchar(200) DEFAULT NULL,
   `Password` varchar(200) DEFAULT NULL,
-  `AdminRegdate` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `AdminRegdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbladmin`
@@ -190,8 +203,7 @@ CREATE TABLE `tbladmin` (
 
 INSERT INTO `tbladmin` (`ID`, `AdminName`, `UserName`, `MobileNumber`, `Email`, `Password`, `AdminRegdate`) VALUES
 (1, 'test', 'admin', 7898799798, 'tester1@gmail.com', 'f925916e2754e5e03f75dd58a5733251', '2019-07-25 06:21:50'),
-(2, 'admin', 'admin', NULL, 'admin@admin.com', 'e6e061838856bf47e1de730719fb2609', '2019-10-30 05:20:16'),
-(3, 'admin', 'admin', NULL, 'admin@admin.com', 'e6e061838856bf47e1de730719fb2609', '2019-10-30 05:20:18');
+(2, 'admin', 'admin', NULL, 'admin@admin.com', 'e10adc3949ba59abbe56e057f20f883e', '2019-10-30 05:20:16');
 
 -- --------------------------------------------------------
 
@@ -199,8 +211,9 @@ INSERT INTO `tbladmin` (`ID`, `AdminName`, `UserName`, `MobileNumber`, `Email`, 
 -- Table structure for table `tblappointment`
 --
 
-CREATE TABLE `tblappointment` (
-  `ID` int(10) NOT NULL,
+DROP TABLE IF EXISTS `tblappointment`;
+CREATE TABLE IF NOT EXISTS `tblappointment` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `AptNumber` varchar(80) DEFAULT NULL,
   `Name` varchar(120) DEFAULT NULL,
   `Email` varchar(120) DEFAULT NULL,
@@ -211,8 +224,9 @@ CREATE TABLE `tblappointment` (
   `home_service` varchar(5) NOT NULL,
   `Cost` int(100) NOT NULL,
   `payment` varchar(50) NOT NULL,
-  `Status` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Status` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblappointment`
@@ -226,7 +240,8 @@ INSERT INTO `tblappointment` (`ID`, `AptNumber`, `Name`, `Email`, `PhoneNumber`,
 (15, '474652297', 'sadia', 'sadia@gmail.com', 1766554499, '12/23/2019', '11:00 am', 'Bridal Make-Up', 'yes', 0, '', '0'),
 (16, '344031907', 'new name', 'sadia@gmail.com', 1766554499, '11/13/2019', '12:00 pm', 'Facial', 'no', 0, '', '0'),
 (17, '567767799', 'new2', 'sadiaafrin@gmail.com', 1766554499, '11/22/2019', '1:00 pm', 'Facial', 'yes', 500, '', '0'),
-(18, '208898104', 'new3', 'info@arorabd.com', 15151515151, '12/19/2019', '1:00 pm', 'Menicure', 'no', 600, 'Paid', '1');
+(18, '208898104', 'new3', 'info@arorabd.com', 15151515151, '12/19/2019', '1:00 pm', 'Menicure', 'no', 600, 'Paid', '1'),
+(20, '834878139', 'sfsfsf', 'jhmasterlimon1@gmail.com', 1956758055, '12/14/2021', '10:00 am', 'Bridal Make-Up', 'no', 10000, '', '0');
 
 -- --------------------------------------------------------
 
@@ -234,16 +249,18 @@ INSERT INTO `tblappointment` (`ID`, `AptNumber`, `Name`, `Email`, `PhoneNumber`,
 -- Table structure for table `tblcustomers`
 --
 
-CREATE TABLE `tblcustomers` (
-  `ID` int(10) NOT NULL,
+DROP TABLE IF EXISTS `tblcustomers`;
+CREATE TABLE IF NOT EXISTS `tblcustomers` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(120) DEFAULT NULL,
   `Email` varchar(200) DEFAULT NULL,
   `MobileNumber` bigint(11) DEFAULT NULL,
   `Gender` enum('Female','Male','Transgender') DEFAULT NULL,
-  `Details` mediumtext DEFAULT NULL,
-  `CreationDate` timestamp NULL DEFAULT current_timestamp(),
-  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Details` mediumtext,
+  `CreationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblcustomers`
@@ -260,13 +277,16 @@ INSERT INTO `tblcustomers` (`ID`, `Name`, `Email`, `MobileNumber`, `Gender`, `De
 -- Table structure for table `tblinvoice`
 --
 
-CREATE TABLE `tblinvoice` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tblinvoice`;
+CREATE TABLE IF NOT EXISTS `tblinvoice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `Userid` int(11) DEFAULT NULL,
   `ServiceId` int(11) DEFAULT NULL,
   `BillingId` int(11) DEFAULT NULL,
-  `PostingDate` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `PostingDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblinvoice`
@@ -281,13 +301,15 @@ INSERT INTO `tblinvoice` (`id`, `Userid`, `ServiceId`, `BillingId`, `PostingDate
 -- Table structure for table `tbloffers`
 --
 
-CREATE TABLE `tbloffers` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `tbloffers`;
+CREATE TABLE IF NOT EXISTS `tbloffers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `oldprice` int(11) NOT NULL,
   `newprice` int(11) NOT NULL,
-  `creation_date` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tbloffers`
@@ -302,16 +324,18 @@ INSERT INTO `tbloffers` (`id`, `name`, `oldprice`, `newprice`, `creation_date`) 
 -- Table structure for table `tblpage`
 --
 
-CREATE TABLE `tblpage` (
-  `ID` int(10) NOT NULL,
+DROP TABLE IF EXISTS `tblpage`;
+CREATE TABLE IF NOT EXISTS `tblpage` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `PageType` varchar(200) DEFAULT NULL,
-  `PageTitle` mediumtext DEFAULT NULL,
-  `PageDescription` mediumtext DEFAULT NULL,
+  `PageTitle` mediumtext,
+  `PageDescription` mediumtext,
   `Email` varchar(200) DEFAULT NULL,
   `MobileNumber` bigint(10) DEFAULT NULL,
   `UpdationDate` date DEFAULT NULL,
-  `Timing` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Timing` varchar(200) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblpage`
@@ -324,16 +348,43 @@ INSERT INTO `tblpage` (`ID`, `PageType`, `PageTitle`, `PageDescription`, `Email`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblpayments`
+--
+
+DROP TABLE IF EXISTS `tblpayments`;
+CREATE TABLE IF NOT EXISTS `tblpayments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pmnt_id` int(11) NOT NULL,
+  `date_of_pmnt` datetime NOT NULL,
+  `cus_id` int(11) NOT NULL,
+  `services` varchar(900) NOT NULL,
+  `method` varchar(900) NOT NULL,
+  `paid_amount` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpayments`
+--
+
+INSERT INTO `tblpayments` (`id`, `pmnt_id`, `date_of_pmnt`, `cus_id`, `services`, `method`, `paid_amount`) VALUES
+(2, 1, '2022-01-15 17:03:38', 6, '14,15', 'bKash', 14000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblservices`
 --
 
-CREATE TABLE `tblservices` (
-  `ID` int(10) NOT NULL,
+DROP TABLE IF EXISTS `tblservices`;
+CREATE TABLE IF NOT EXISTS `tblservices` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
   `ServiceName` varchar(200) DEFAULT NULL,
   `Cost` int(10) DEFAULT NULL,
   `description` varchar(500) NOT NULL,
-  `CreationDate` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `CreationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblservices`
@@ -358,14 +409,16 @@ INSERT INTO `tblservices` (`ID`, `ServiceName`, `Cost`, `description`, `Creation
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `age` int(11) NOT NULL,
   `email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `password` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user`
@@ -374,171 +427,6 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `age`, `email`, `phone`, `password`) VALUES
 (6, 'nila', 22, 'nila@gmail.com', '01766554499', '4cf49ed737012a026800eaf4607da43a'),
 (7, 'sadia', 23, 'sadia@gmail.com', '01766554499', '91b5cd208feabcc9b01cd14b7e4e83ad');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `feedback`
---
-ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pro_order`
---
-ALTER TABLE `pro_order`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbladmin`
---
-ALTER TABLE `tbladmin`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tblappointment`
---
-ALTER TABLE `tblappointment`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tblcustomers`
---
-ALTER TABLE `tblcustomers`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tblinvoice`
---
-ALTER TABLE `tblinvoice`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `tbloffers`
---
-ALTER TABLE `tbloffers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tblpage`
---
-ALTER TABLE `tblpage`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `tblservices`
---
-ALTER TABLE `tblservices`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `feedback`
---
-ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `product`
---
-ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `pro_order`
---
-ALTER TABLE `pro_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT for table `tbladmin`
---
-ALTER TABLE `tbladmin`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tblappointment`
---
-ALTER TABLE `tblappointment`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `tblcustomers`
---
-ALTER TABLE `tblcustomers`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `tblinvoice`
---
-ALTER TABLE `tblinvoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `tbloffers`
---
-ALTER TABLE `tbloffers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tblpage`
---
-ALTER TABLE `tblpage`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblservices`
---
-ALTER TABLE `tblservices`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
