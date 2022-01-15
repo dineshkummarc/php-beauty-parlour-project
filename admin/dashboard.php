@@ -1,6 +1,5 @@
 <?php
 session_start();
-error_reporting(0);
 include('includes/dbconnection.php');
 if (strlen($_SESSION['bpmsaid']==0)) {
   header('location:logout.php');
@@ -170,19 +169,6 @@ $totaloffer=mysqli_num_rows($query6);
                 
                 <div class="row calender widget-shadow">
                     <div class="row-one">
-                        <div class="col-md-4 widget">
-                            <?php $query7=mysqli_query($con,"Select * from tblcustomers where type='2'");
-$totalvip=mysqli_num_rows($query7);
-?>
-                            <div class="stats-left ">
-                                <h5>Total</h5>
-                                <h4>VIP customer</h4>
-                            </div>
-                            <div class="stats-right">
-                                <label> <?php echo $totalvip;?></label>
-                            </div>
-                            <div class="clearfix"> </div>
-                        </div>
                          <div class="col-md-4 widget states-mdl">
                             <?php $query8=mysqli_query($con,"Select * from product");
 $totalproduct=mysqli_num_rows($query8);

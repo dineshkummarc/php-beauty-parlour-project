@@ -39,9 +39,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="accepted_appoint.php">Accepted List</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="vip_cust.php">Vip List</a>
-                    </li>
                     <li class="nav-item btn-appointment">
                         <a class="nav-link" href="#" data-toggle="modal" data-target="#appointment">Saloon Appointment</a>
                     </li>

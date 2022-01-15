@@ -14,7 +14,7 @@ if (strlen($_SESSION['bpmsaid']==0)) {
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>BTMS || Manage Offers</title>
+<title>BTMS || Product List</title>
 
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
@@ -56,26 +56,27 @@ if (strlen($_SESSION['bpmsaid']==0)) {
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="tables">
-					<h3 class="title1">Manage Offers</h3>
+					<h3 class="title1">Product List</h3>
 					
 					
 				
 					<div class="table-responsive bs-example widget-shadow">
-						<h4>Update Offers:</h4>
 						<table class="table table-bordered">
 							<thead> 
 								<tr> 
 									<th>#</th> 
-									<th>Offer Name</th> 
-									<th>Old Price</th>
-									<th>New Price</th>
-									<th>Creation Date</th>
+									<th>Name</th> 
+									<th>Price</th>
+									<th>Stock</th> 
+									<th>Image</th>
+									<th>Category</th>
+									<th>Description</th>
 									<th colspan="2">Action</th> 
 								</tr> 
 							</thead> 
 							<tbody>
 							<?php
-								$ret=mysqli_query($con,"select * from  tbloffers");
+								$ret=mysqli_query($con,"SELECT * FROM product");
 								$cnt=1;
 								while ($row=mysqli_fetch_array($ret)) {
 							?>
@@ -83,19 +84,22 @@ if (strlen($_SESSION['bpmsaid']==0)) {
 						 	<tr> 
 						 		<th scope="row"><?php echo $cnt;?></th> 
 						 		<td><?php  echo $row['name'];?></td> 
-						 		<td><?php  echo $row['oldprice'];?></td>
-						 		<td><?php  echo $row['newprice'];?></td>
-						 		<td><?php  echo $row['creation_date'];?></td> 
+						 		<td><?php  echo $row['price'];?></td>
+						 		<td><?php  echo $row['stock'];?></td>
+						 		<td><?php  echo $row['image'];?></td>
+						 		<td><?php  echo $row['cetegory'];?></td>
+						 		<td><?php  echo $row['description'];?></td> 
 						 		<td>
-						 			<a href="edit-offer.php?editid=<?php echo $row['id']; ?>">Edit</a>
+						 			<a href="edit_product.php?id=<?php echo $row['id']; ?>">Edit</a>
 						 		</td>
 						 		<td>
-									<a href="del_offer.php?editid=<?php echo $row['id'] ;?>">Delete</a>
+									<a href="del_product.php?id=<?php echo $row['id'] ;?>">Delete</a>
 						 		</td>
 						 	</tr>   
 						 	<?php $cnt=$cnt+1; }?>
 							</tbody> 
 						</table> 
+
 					</div>
 				</div>
 			</div>

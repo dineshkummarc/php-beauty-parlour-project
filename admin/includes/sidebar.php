@@ -17,16 +17,6 @@
 						</li>
 					</ul>
 				</li>
-				<li>
-					<a href="add-offer.php"><i class="fa fa-cogs nav_icon"></i>Offers<span class="fa arrow"></span> </a>
-					<ul class="nav nav-second-level collapse">
-						<li>
-							<a href="add-offer.php">Add Offer</a>
-						</li>
-						<li>
-							<a href="manage-offers.php">Manage Offers</a>
-						</li>
-					</ul>
 				</li>
 				<li class="">
 					<a href="category-list.php"><i class="fa fa-book nav_icon"></i>Category <span class="fa arrow"></span></a>
@@ -84,9 +74,6 @@
 							<a href="new-feedback.php">New Feedback</a>
 						</li>
 					</ul>
-				</li>
-				<li>
-					<a href="add-customer.php" class="chart-nav"><i class="fa fa-user nav_icon"></i>Add Customer</a>
 				</li>
 				<li>
 					<a href="customer-list.php" class="chart-nav"><i class="fa fa-users nav_icon"></i>Customer List</a>

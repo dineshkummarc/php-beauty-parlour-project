@@ -6,34 +6,13 @@ if (strlen($_SESSION['bpmsaid']==0)) {
   header('location:logout.php');
   } else{
 
-if(isset($_POST['submit']))
-  {
-    $sername=$_POST['sername'];
-    $oldcost=$_POST['oldcost'];
-    $newcost=$_POST['newcost'];
-   print_r($_POST);
 
-     
-    $query = mysqli_query ($con, "INSERT INTO  tbloffers (name, oldprice, newprice) VALUES ('$sername', '$oldcost', '$newcost')");
-
-    if ($query) {
-    	echo "<script>alert('Offer Product has been added.');</script>"; 
-    	echo "<script> location = 'add-offer.php'</script>";   
-    $msg="";
-  }
-  else
-    {
-    echo "<script>alert('Something Went Wrong. Please try again.');</script>";  	
-    }
-
-  
-}
 
   ?>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>BTMS | Add Offer</title>
+<title>BPMS || Search Appointment</title>
 
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
@@ -69,46 +48,65 @@ if(isset($_POST['submit']))
 		 <?php include_once('includes/sidebar.php');?>
 		<!--left-fixed -navigation-->
 		<!-- header-starts -->
-	 <?php include_once('includes/header.php');?>
+		 <?php include_once('includes/header.php');?>
 		<!-- //header-ends -->
 		<!-- main content start-->
 		<div id="page-wrapper">
 			<div class="main-page">
-				<div class="forms">
-					<h3 class="title1">Add New Offer</h3>
-					<div class="form-grids row widget-shadow" data-example-id="basic-forms"> 
-						
-						<div class="form-body">
-							<form method="post">
+				<div class="tables">
+					<h3 class="title1">Search Appointment</h3>
+					
+					
+				
+					<div class="table-responsive bs-example widget-shadow">
+						<h4>Search Appointment / Name / Contact number:</h4>
+	<div class="form-body">
+							<form method="post" name="search" action="">
 								<p style="font-size:16px; color:red" align="center"> <?php if($msg){
     echo $msg;
   }  ?> </p>
 
   
-							 <div class="form-group"> 
-								<label for="offer_name">Offer Name</label> 
-								<input type="text" class="form-control" id="offer_name" name="sername" placeholder="Offer Name" value="" required="true"> 
-							</div> 
-
-							<div class="form-group"> 
-								<label for="old_price">Old Price</label> 
-								<input type="number" id="old_price" name="oldcost" class="form-control" placeholder="Price" value="" required="true">
-							</div>
-
-							<div class="form-group"> 
-								<label for="new_price">New Price</label> 
-								<input type="number" id="new_price" name="newcost" class="form-control" placeholder="Price" value="" required="true">
-							</div>
-							
-							  <button type="submit" name="submit" class="btn btn-default">Add</button> </form> 
-						</div>
+							 <div class="form-group"> <label for="exampleInputEmail1">Search by Appointment Number</label> <input id="searchdata" type="text" name="searchdata" required="true" class="form-control">
 						
+							<br>
+							  <button type="submit" name="search" class="btn btn-primary btn-sm">Search</button> </form> 
+						</div>
+
+<?php
+if(isset($_POST['search']))
+{ 
+
+$sdata=$_POST['searchdata'];
+  ?>
+  <h4 align="center">Result against "<?php echo $sdata;?>" keyword </h4> 
+
+						<table class="table table-bordered"> <thead> <tr> <th>#</th> <th> Appointment Number</th> <th>Name</th><th>Mobile Number</th> <th>Appointment Date</th><th>Appointment Time</th><th>Action</th> </tr> </thead> <tbody>
+<?php
+$ret=mysqli_query($con,"select *from  tblappointment where AptNumber like '%$sdata%' || Name like '%$sdata%' || PhoneNumber like '%$sdata%'");
+$num=mysqli_num_rows($ret);
+if($num>0){
+$cnt=1;
+while ($row=mysqli_fetch_array($ret)) {
+
+?>
+
+						 <tr> <th scope="row"><?php echo $cnt;?></th> <td><?php  echo $row['AptNumber'];?></td> <td><?php  echo $row['Name'];?></td><td><?php  echo $row['PhoneNumber'];?></td><td><?php  echo $row['AptDate'];?></td> <td><?php  echo $row['AptTime'];?></td> <td><a href="view-appointment.php?viewid=<?php echo $row['ID'];?>">View</a></td> </tr>   <?php 
+$cnt=$cnt+1;
+} } else { ?>
+  <tr>
+    <td colspan="8"> No record found against this search</td>
+
+  </tr>
+   
+<?php } }?></tbody> </table> 
 					</div>
-				
 				</div>
 			</div>
 		</div>
+		<!--footer-->
 		 <?php include_once('includes/footer.php');?>
+        <!--//footer-->
 	</div>
 	<!-- Classie -->
 		<script src="js/classie.js"></script>
@@ -135,7 +133,7 @@ if(isset($_POST['submit']))
 	<script src="js/scripts.js"></script>
 	<!--//scrolling js-->
 	<!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.js"> </script>
+	<script src="js/bootstrap.js"> </script>
 </body>
 </html>
-<?php } ?>
+<?php }  ?>
